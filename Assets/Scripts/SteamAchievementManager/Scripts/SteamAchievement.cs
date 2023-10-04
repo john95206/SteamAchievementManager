@@ -27,9 +27,6 @@ namespace SteamAchievement
         {
             switch (_achievementKey)
             {
-                case AchievementKey.ACH_GAME_PLAYED:
-                    _statsKey = SteamStatsKey.NUM_GAMES;
-                    break;
                 case AchievementKey.ACH_WIN_ONE_GAME:
                 case AchievementKey.ACH_WIN_100_GAMES:
                     _statsKey = SteamStatsKey.NUM_WINS;
