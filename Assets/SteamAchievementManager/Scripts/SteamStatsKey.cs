@@ -1,7 +1,7 @@
-namespace SteamAchievement
+ï»¿namespace SteamAchievement
 {
     /// <summary>
-    /// Steam Stats ‚É“o˜^‚µ‚½ Key ‚ğŠi”[‚·‚é
+    /// Steam Stats ã«ç™»éŒ²ã—ãŸ Key ã‚’æ ¼ç´ã™ã‚‹
     /// </summary>
     public class SteamStatsKey
     {
