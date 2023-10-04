@@ -67,6 +67,7 @@ namespace SteamAchievement
             if (_achievedList.Contains(achievement.AchievementKey))
             {
                 Log($"Already achieved: {achievement.AchievementKey}");
+                progress = achievement.Progress;
                 return;
             }
 
@@ -140,13 +141,26 @@ namespace SteamAchievement
         {
             averagedResult = float.MinValue;
 
-            if (achievement.ApiType == ApiType.AVGRATE)
+            if (!SteamManager.Initialized)
+            {
+                Log($"Steam Error: Initialize Failed", true);
+                return false;
+            }
+
+            if (achievement.ApiType != ApiType.AVGRATE)
             {
                 return false;
             }
 
             if (string.IsNullOrEmpty(achievement.Progress))
             {
+                return false;
+            }
+
+            if (_achievedList.Contains(achievement.AchievementKey))
+            {
+                Log($"Already achieved: {achievement.AchievementKey}");
+                averagedResult = float.Parse(achievement.Progress);
                 return false;
             }
 
@@ -260,19 +274,29 @@ namespace SteamAchievement
 
         /// <summary>
         /// SteamUserStats.GetStat を呼び出す。
-        /// Stats の呼び出しは、実績 (Achievement) ではなくデータ(Stats) の API を利用する必要がある
-        /// Stats は進捗系の実績にしか使わないため、専用の接頭句を付けたものを API 名とした。
         /// </summary>
-        /// <param name="statsKey">実績 API名</param>
+        /// <param name="steamAchievement"></param>
         /// <param name="progress">受信する進捗</param>
         /// <returns>API が正常に終了したかどうか</returns>
         private bool GetStat(SteamAchievement steamAchievement, out string progress)
         {
-            switch (steamAchievement.ApiType)
+            return GetStatByKey(steamAchievement.StatsKey, steamAchievement.ApiType, out progress);
+        }
+
+        /// <summary>
+        /// Stats 名と API Type から実績の進行状態を返す
+        /// </summary>
+        /// <param name="key">Stats 名</param>
+        /// <param name="apiType">API Type</param>
+        /// <param name="progress">受信する進捗</param>
+        /// <returns>API が正常に終了したかどうか</returns>
+        private bool GetStatByKey(string key, ApiType apiType, out string progress)
+        {
+            switch (apiType)
             {
                 case ApiType.INT:
                     int intProgress;
-                    if (!SteamUserStats.GetStat(steamAchievement.StatsKey, out intProgress))
+                    if (!SteamUserStats.GetStat(key, out intProgress))
                     {
                         progress = intProgress == int.MinValue ? string.Empty : intProgress.ToString();
                         return false;
@@ -281,7 +305,7 @@ namespace SteamAchievement
                     return true;
                 case ApiType.FLOAT:
                     float floatProgress;
-                    if (!SteamUserStats.GetStat(steamAchievement.StatsKey, out floatProgress))
+                    if (!SteamUserStats.GetStat(key, out floatProgress))
                     {
                         progress = floatProgress == float.MinValue ? string.Empty : floatProgress.ToString();
                         return false;
@@ -290,7 +314,7 @@ namespace SteamAchievement
                     return true;
                 case ApiType.AVGRATE:
                     float avgrateProgress;
-                    if (!SteamUserStats.GetStat(steamAchievement.StatsKey, out avgrateProgress))
+                    if (!SteamUserStats.GetStat(key, out avgrateProgress))
                     {
                         progress = avgrateProgress == float.MinValue ? string.Empty : avgrateProgress.ToString();
                         return false;
@@ -303,12 +327,43 @@ namespace SteamAchievement
             }
         }
 
+        public bool GetIntStatsByKey(string key, out int progresss)
+        {
+            if (!GetStatByKey(key, ApiType.INT, out string progressString))
+            {
+                progresss = int.MinValue;
+                return false;
+            }
+            progresss = int.Parse(progressString);
+            return true;
+        }
+
+        public bool GetFloatStatsByKey(string key, out float progresss)
+        {
+            if (!GetStatByKey(key, ApiType.INT, out string progressString))
+            {
+                progresss = float.MinValue;
+                return false;
+            }
+            progresss = float.Parse(progressString);
+            return true;
+        }
+
+        public bool GetAvgrateStatsByKey(string key, out float progresss)
+        {
+            if (!GetStatByKey(key, ApiType.AVGRATE, out string progressString))
+            {
+                progresss = float.MinValue;
+                return false;
+            }
+            progresss = float.Parse(progressString);
+            return true;
+        }
+
         /// <summary>
         /// SteamUserStats.SetStat を呼び出す。
-        /// Stats の呼び出しは、実績 (Achievement) ではなくデータ(Stats) の API を利用する必要がある
-        /// Stats は進捗系の実績にしか使わないため、専用の接頭句を付けたものを API 名とした。
         /// </summary>
-        /// <param name="statsKey">実績 API名</param>
+        /// <param name="steamAchievement"></param>
         /// <param name="progress">送信する進捗</param>
         /// <returns>API が正常に終了したかどうか</returns>
         private bool SetStat(SteamAchievement steamAchievement, string progress)
