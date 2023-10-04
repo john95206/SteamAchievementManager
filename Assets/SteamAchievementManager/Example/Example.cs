@@ -58,6 +58,8 @@ namespace SteamAchievement.Example
             {
                 ActivateGame();
             });
+
+            ActivateGame();
         }
 
         private void OnAchieveButton(AchievementKey key)
@@ -90,6 +92,7 @@ namespace SteamAchievement.Example
                     _totalWinText.text = progress;
                     break;
                 case AchievementKey.ACH_TRAVEL_FAR_ACCUM:
+                    OnStoreStats();
                     AchievementManager.Instance.UpdateAchievement(new SteamAchievement
                     (
                         key,
@@ -103,7 +106,7 @@ namespace SteamAchievement.Example
                     AchievementManager.Instance.UpdateAvgrateAchievement(new SteamAchievement
                     (
                         key,
-                        ApiType.FLOAT,
+                        ApiType.AVGRATE,
                         _gameFeetTraveled.ToString(),
                         _gameDurationSeconds
                     ), out _averageSpeed);
@@ -128,6 +131,31 @@ namespace SteamAchievement.Example
             _tickCountGameStart = Time.time;
             _gameFeetTraveledText.text = _gameFeetTraveled.ToString();
             _gameDurationSecondsText.text = _gameDurationSeconds.ToString();
+
+            AchievementManager.Instance.GetIntStatsByKey(SteamStatsKey.NUM_WINS, out _totalNumOfWins);
+            // 値がなかった場合 int.MinValue で返しているので 0 に丸める
+            if (_totalNumOfWins == int.MinValue)
+            {
+                _totalNumOfWins = 0;
+            }
+
+            AchievementManager.Instance.GetAvgrateStatsByKey(SteamStatsKey.AVERAGE_SPEED, out _averageSpeed);
+            // 値がなかった場合 float.MinValue で返しているので 0 に丸める
+            if (_averageSpeed == float.MinValue)
+            {
+                _averageSpeed = 0;
+            }
+
+            AchievementManager.Instance.GetFloatStatsByKey(SteamStatsKey.FEET_TRAVELED, out _totalFeetTraveled);
+            // 値がなかった場合 float.MinValue で返しているので 0 に丸める
+            if (_totalFeetTraveled == float.MinValue)
+            {
+                _totalFeetTraveled = 0;
+            }
+
+            _totalWinText.text = _totalNumOfWins.ToString();
+            _averageSpeedText.text = _averageSpeed.ToString();
+            _totalFeetTraveledText.text = _totalFeetTraveled.ToString();
         }
 
         private void WinGame()
