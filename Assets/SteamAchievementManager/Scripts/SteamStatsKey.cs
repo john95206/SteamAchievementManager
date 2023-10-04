@@ -1,4 +1,4 @@
-﻿namespace SteamAchievement
+namespace SteamAchievement
 {
     /// <summary>
     /// Steam Stats に登録した Key を格納する

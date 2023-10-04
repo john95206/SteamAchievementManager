@@ -1,7 +1,7 @@
 namespace SteamAchievement
 {
     /// <summary>
-    /// Steam ‚É“o˜^‚µ‚½ÀÑ‚Ì API –¼‚ğŠi”[‚·‚é
+    /// Steam ã«ç™»éŒ²ã—ãŸå®Ÿç¸¾ã® API åã‚’æ ¼ç´ã™ã‚‹
     /// </summary>
     public enum AchievementKey
     {

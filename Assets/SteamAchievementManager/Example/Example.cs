@@ -5,8 +5,8 @@ using UnityEngine.UI;
 namespace SteamAchievement.Example
 {
     /// <summary>
-    /// AchievementManager ‚Ìg‚¢•ûƒTƒ“ƒvƒ‹B
-    /// Steam ‚Ì‚±‚Æ‚ğl‚¦‚¸‚É AchievementManager.UpdateAchievement ‚ğŒÄ‚×‚ÎÀÑ‚ªXV‚³‚ê‚é‚æ‚¤‚É‚µ‚½B
+    /// AchievementManager ã®ä½¿ã„æ–¹ã‚µãƒ³ãƒ—ãƒ«ã€‚
+    /// Steam ã®ã“ã¨ã‚’è€ƒãˆãšã« AchievementManager.UpdateAchievement ã‚’å‘¼ã¹ã°å®Ÿç¸¾ãŒæ›´æ–°ã•ã‚Œã‚‹ã‚ˆã†ã«ã—ãŸã€‚
     /// </summary>
     public class Example : MonoBehaviour
     {

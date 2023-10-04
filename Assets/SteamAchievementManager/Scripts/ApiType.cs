@@ -1,7 +1,7 @@
 namespace SteamAchievement
 {
     /// <summary>
-    /// Steam Stats ‚É“o˜^‚µ‚½ Type
+    /// Steam Stats ã«ç™»éŒ²ã—ãŸ Type
     /// </summary>
     public enum ApiType
     {

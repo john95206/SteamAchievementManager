@@ -144,7 +144,7 @@ namespace SteamAchievement
             {
                 return false;
             }
-            
+
             if (string.IsNullOrEmpty(achievement.Progress))
             {
                 return false;
