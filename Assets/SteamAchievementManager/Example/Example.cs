@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace SteamAchievement.Example
 {
@@ -26,15 +27,15 @@ namespace SteamAchievement.Example
         [SerializeField]
         private Button _resetButton = default;
         [SerializeField]
-        private Text _totalWinText = default;
+        private TextMeshProUGUI _totalWinText = default;
         [SerializeField]
-        private Text _totalFeetTraveledText = default;
+        private TextMeshProUGUI _totalFeetTraveledText = default;
         [SerializeField]
-        private Text _gameFeetTraveledText = default;
+        private TextMeshProUGUI _gameFeetTraveledText = default;
         [SerializeField]
-        private Text _gameDurationSecondsText = default;
+        private TextMeshProUGUI _gameDurationSecondsText = default;
         [SerializeField]
-        private Text _averageSpeedText = default;
+        private TextMeshProUGUI _averageSpeedText = default;
         [SerializeField]
         private Button _activateButton = default;
 
