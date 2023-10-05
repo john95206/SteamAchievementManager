@@ -140,7 +140,7 @@ Steam 公式で公開している Space War の実績解除を `SteamAchievement
 
 これは本プロジェクトと Space War の実績解除の設計思想が競合したために起きている現象です。
 
-Steam 公式で配布されているサンプル（https://github.com/rlabrecque/Steamworks.NET-Example）では、
+Steam 公式で配布されているサンプル（ https://github.com/rlabrecque/Steamworks.NET-Example ）では、
 
 ローカルで `UserStats` のデータを保持しておき、一定の値を超えたら `SetAchievement` して実績を解除しています。
 
