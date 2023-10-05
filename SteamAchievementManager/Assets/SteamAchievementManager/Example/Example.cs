@@ -62,13 +62,13 @@ namespace SteamAchievement.Example
             ActivateGame();
         }
 
-        private void OnAchieveButton(AchievementKey key)
+        private void OnAchieveButton(AchievementKeyType key)
         {
             string progress = string.Empty;
 
             switch (key)
             {
-                case AchievementKey.ACH_WIN_ONE_GAME:
+                case AchievementKeyType.ACH_WIN_ONE_GAME:
                     WinGame();
                     AchievementManager.Instance.UpdateAchievement(new SteamAchievement
                     (
@@ -78,7 +78,7 @@ namespace SteamAchievement.Example
                     ), out progress);
                     _totalWinText.text = progress;
                     break;
-                case AchievementKey.ACH_WIN_100_GAMES:
+                case AchievementKeyType.ACH_WIN_100_GAMES:
                     for (var i = 0; i < 100; i++)
                     {
                         WinGame();
@@ -91,7 +91,7 @@ namespace SteamAchievement.Example
                     ), out progress);
                     _totalWinText.text = progress;
                     break;
-                case AchievementKey.ACH_TRAVEL_FAR_ACCUM:
+                case AchievementKeyType.ACH_TRAVEL_FAR_ACCUM:
                     OnStoreStats();
                     AchievementManager.Instance.UpdateAchievement(new SteamAchievement
                     (
@@ -101,7 +101,7 @@ namespace SteamAchievement.Example
                     ), out progress);
                     _totalFeetTraveledText.text = progress;
                     break;
-                case AchievementKey.ACH_TRAVEL_FAR_SINGLE:
+                case AchievementKeyType.ACH_TRAVEL_FAR_SINGLE:
                     AddDistanceTraveled(100.0f);
                     AchievementManager.Instance.UpdateAvgrateAchievement(new SteamAchievement
                     (

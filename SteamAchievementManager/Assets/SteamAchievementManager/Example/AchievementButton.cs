@@ -9,8 +9,8 @@ namespace SteamAchievement.Example
         private Button _button = default;
         public Button Button => _button;
         [SerializeField]
-        private AchievementKey _key;
-        public AchievementKey Key => _key;
+        private AchievementKeyType _key;
+        public AchievementKeyType Key => _key;
 
         private void Awake()
         {
