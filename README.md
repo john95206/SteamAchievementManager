@@ -14,7 +14,9 @@
 ### リポジトリをクローンする
 
 サンプルプロジェクトを用意しているので、具体的な使い方を見たい場合はこのリポジトリをクローンしてください。
+
 `Assets/SteamAchievementManager/Example/Scenes/Example` にシーンを用意しています。
+
 Steam 公式で公開している、 Space War の実績を用いて実績の更新、解除が試せるようになっています。
 
 # Summary(概要)
@@ -52,7 +54,9 @@ AchievementManager.Instance.UpdateAvgrateAchievement(new SteamAchievement
 ## AchievementManager.UpdateAchievement(ISteamAchievement, out string progress)
 
 `AchievementManager.UpdateAchievement` を呼び出せば Steam 実績の更新をやってくれますが、インターフェース `ISteamAchievement` として引数を用意しています。
+
 お使いの際はご自身で `ISteamAchievement` を継承したクラスを作り、それを `UpdateAchievement` の引数に与えるようにしてお使いください。
+
 サンプルプロジェクトでは以下のようにしています。
 
 ```
@@ -119,26 +123,37 @@ public class SteamStatsKey
 ```
 
 この例ですと、`AchievementKeyType` に Steamworks で設定した実績の Key を格納するようにしてください。
+
 また、Steamworks で設定したデータを使う場合は、`SteamStatsKey` に設定した Key を格納するようにしてください。
 
 # Sample Project(サンプルプロジェクトについて)
 
 Steam 公式で公開している Space War の実績解除を `SteamAchievementManager` を用いて試すことができます。
+
 しかし、実際に解除できるのは `Intersteller` だけかと思います。
+
 他の実績に関しては、目標の値に到達しても解除は確認できませんが、SteamStats には登録されており、データが更新されていることは確認できるかと思います。
 
 # Architecture(設計思想)
 
 サンプルプロジェクトでは `Intersteller` だけが実績解除を確認できることについて。
+
 これは本プロジェクトと Space War の実績解除の設計思想が競合したために起きている現象です。
+
 Steam 公式で配布されているサンプル（https://github.com/rlabrecque/Steamworks.NET-Example）では、
+
 ローカルで `UserStats` のデータを保持しておき、一定の値を超えたら `SetAchievement` して実績を解除しています。
+
 しかし、Steamworks でデータを用意し、それを実績に紐づけている「進行系」の実績ならば、`UserStats` を更新するだけで、
+
 実績の条件をクリアしたかどうかは Steam の方でやってくれます。
 （例：「敵を100体倒した」という実績は、敵を倒した数を Steam に送信していれば、100体目で自動的に実績が解除される）
+
+
 本プロジェクトではその実装に乗っかり、「進行系」の実績であればローカルから `SetAchievement` せずに `StoreStats` だけするようにしました。
 
 もちろん、「進行系でない」実績（例：最後のボスを倒した）は `UpdateAchievement` の実行が成功すれば直ちに実績が解除されます。
 
 「進行系」の実績を実装する際は、忘れずに Steamworks の「データ」項目にて、API を用意するようにしてください。
+
 その後、その API と実績を紐づけるようにしてください。
