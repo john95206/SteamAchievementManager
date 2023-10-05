@@ -3,9 +3,13 @@
 ### PackageManager を使う
 
 `Packages` の `manifest.json` の `dependencies` に下記を追記してください。
+
 `"com.yuu.steamachievementmanagerpackage": "https://github.com/john95206/SteamAchievementManager.git?path=/SteamAchievementManager/Packages/SteamAchievementManager"`
+
 または、 `PackageManager` の `Add package from git...` にて下記 URL を入れてください
+
 `https://github.com/john95206/SteamAchievementManager.git?path=/SteamAchievementManager/Packages/SteamAchievementManager`
+
 
 ### リポジトリをクローンする
 
