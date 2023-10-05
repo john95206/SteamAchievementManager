@@ -74,7 +74,8 @@ namespace SteamAchievement
 			string achievementKey = achievement.AchievementKey.ToString();
 
 			// 進捗系でなければ発火即実績解除
-			if (string.IsNullOrEmpty(achievement.Progress))
+			if (string.IsNullOrEmpty(achievement.Progress) ||
+				string.IsNullOrEmpty(achievement.StatsKey))
 			{
 				UnlockAchievement(achievementKey);
 			}
